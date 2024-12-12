@@ -1,1 +1,1 @@
-web: gunicorn sourdict.wsgi
+web: gunicorn django_project.wsgi
