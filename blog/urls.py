@@ -1,4 +1,6 @@
 from django.urls import path
+
+# Using Django's generic views in our URL routing
 from .views import (
     PostListView,
     PostDetailView,
@@ -8,6 +10,7 @@ from .views import (
     UserPostListView
 )
 
+# URL routing of our Blog app
 urlpatterns = [
     path('', PostListView.as_view(), name='blog-home'),
     path('user/<str:username>', UserPostListView.as_view(), name='user-posts'),

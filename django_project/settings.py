@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+# This is for accessing our environment variables
 import os
+
+# This is for running django commands on Heroku CLI in deployment process
 import django_heroku
 
 from pathlib import Path
@@ -26,20 +29,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG_VALUE')
 
+# Adding our domain to allowed hosts
 ALLOWED_HOSTS = ['https://tegodc-6f8ef2636b59.herokuapp.com/']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # Apps that is created in Django
     'blog.apps.BlogConfig',
     'users.apps.UsersConfig',
 
+    # Apps that is installed externally
     'crispy_forms',
     'crispy_bootstrap4',
 
+    # Apps that is already downloaded in Django
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,6 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+# Adding static files in deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = 'static/'
 
@@ -132,10 +140,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Default redirect URL to use in functions
 LOGIN_REDIRECT_URL = 'blog-home'
 LOGIN_URL = 'login'
 
+# Using BS4 styles in forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap4'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Using installed module to use Django settings in Heroku
 django_heroku.settings(locals())
